@@ -57,15 +57,20 @@ class Server:
         writer.close()
 
 
-serv = Server()
+def run_server(host, port):
+    serv = Server()
 
-loop = asyncio.get_event_loop()
-coro = asyncio.start_server(serv.handle_echo, "127.0.0.1", 8888, loop=loop)
-server = loop.run_until_complete(coro)
-try:
-    loop.run_forever()
-except KeyboardInterrupt:
-    pass
-server.close()
-loop.run_until_complete(server.wait_closed())
-loop.close()
+    loop = asyncio.get_event_loop()
+    coro = asyncio.start_server(serv.handle_echo, host, port, loop=loop)
+    server = loop.run_until_complete(coro)
+    try:
+        loop.run_forever()
+    except KeyboardInterrupt:
+        pass
+    server.close()
+    loop.run_until_complete(server.wait_closed())
+    loop.close()
+
+
+if __name__ == '__main__':
+    run_server("127.0.0.1", 8888)

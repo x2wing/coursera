@@ -79,10 +79,14 @@ class Client:
         data = {}
         if payload == "":
             return data
+        # payload.replace('\n\n', '\n')
 
         # разбираем ответ для команды get
         for row in payload.split("\n"):
-            key, value, timestamp = row.split()
+
+            print("from server ", row)
+            if row:
+                key, value, timestamp = row.split()
             if key not in data:
                 data[key] = []
             data[key].append((int(timestamp), float(value)))
@@ -99,12 +103,15 @@ class Client:
 def _main():
     # проверка работы клиента
     client = Client("127.0.0.1", 8888, timeout=5)
-    client.put("test", 0.5, timestamp=1)
-    client.put("test", 2.0, timestamp=2)
-    client.put("test", 0.5, timestamp=3)
-    client.put("load", 3, timestamp=4)
-    client.put("load", 4, timestamp=5)
-    print(client.get("*"))
+
+
+    # client.put("test", 0.5, timestamp=1)
+    # client.put("test", 2.0, timestamp=2)
+    # client.put("test", 0.5, timestamp=3)
+    # client.put("load", 3, timestamp=4)
+    # client.put("load", 4, timestamp=5)
+    print(client.get("k2"))
+
 
     client.close()
 
