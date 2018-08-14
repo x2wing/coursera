@@ -25,6 +25,7 @@ class Server:
             else:
                 return ('ok\n' + self.response_generate(key) + '\n').encode("utf8")
         else:
+            print(rawdata)
             return b'error\nwrong command\n\n'
         # f"put {host_metric} {value} {timestamp}\n".encode("utf8")
 

@@ -79,7 +79,7 @@ class Client:
                     raise ClientError
 
                 # print('re',data)
-                if re.findall(b'\\n(.+?) (.+?) (\d+)\\n(.+?) (.+?)', data):
+                if re.findall(b'\\n(.+?) (.+?) (\d+)\\n((.+?) (.+?) (\d+)\\n)+\\n', data):
                     # print('re in')
                     # print(data)
 
@@ -104,13 +104,19 @@ class Client:
 
 if __name__ == '__main__':
     client = Client("127.0.0.1", 8888, timeout=15)
+    client1 = Client("127.0.0.1", 8888, timeout=15)
+    client3 = Client("127.0.0.1", 8888, timeout=15)
 
     client.put("palm.cpu", 0.5, timestamp=1150864247)
-    # client.put("palm.cpu", 2.0, timestamp=1150864248)
-    # client.put("palm.cpu", 0.5, timestamp=1150864248)
-    #
-    # client.put("eardrum.cpu", 3, timestamp=1150864250)
-    # client.put("eardrum.cpu", 4, timestamp=1150864251)
-    # client.put("eardrum.memory", 4200000)
+    client.put("palm.cpu", 2.0, timestamp=1150864248)
+    client.put("palm.cpu", 0.5, timestamp=1150864248)
 
-    print(client.get('palm.cpu'))
+    client1.put("palm.cpu", 0.5, timestamp=1150864247)
+    client1.put("palm.cpu", 2.0, timestamp=1150864248)
+    client1.put("palm.cpu", 0.5, timestamp=1150864248)
+
+    client3.put("eardrum.cpu", 3, timestamp=1150864250)
+    client3.put("eardrum.cpu", 4, timestamp=1150864251)
+    client3.put("eardrum.memory", 4200000)
+
+    # print(client.get('palm.cpu'))
