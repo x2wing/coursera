@@ -9,7 +9,7 @@
 запускаете этот скрипт.
 """
 import sys
-from client import Client, ClientSocketError, ClientProtocolError
+from govno_client import Client, ClientSocketError, ClientProtocolError
 
 
 def run(host, port):
